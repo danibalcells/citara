@@ -1,0 +1,159 @@
+:root {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #1a1a1a;
+  background: #faf8f4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 0.5px;
+}
+
+.tagline {
+  margin: 2px 0 18px;
+  color: #6b6258;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.controls .row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6b6258;
+  gap: 4px;
+}
+
+.controls select {
+  font-size: 15px;
+  padding: 6px 8px;
+  border: 1px solid #cfc6ba;
+  border-radius: 6px;
+  background: #fff;
+  min-width: 130px;
+}
+
+.row.shapes {
+  align-items: center;
+  gap: 8px;
+}
+
+.shapes-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6b6258;
+}
+
+.shape-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 2px solid #ccc;
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+  opacity: 0.45;
+  font-size: 14px;
+}
+
+.shape-toggle.on {
+  opacity: 1;
+}
+
+.shape-toggle.home {
+  border-width: 3px;
+  font-weight: 700;
+}
+
+.home-mark {
+  font-size: 13px;
+}
+
+.shape-toggle .swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.link {
+  border: none;
+  background: none;
+  color: #4363d8;
+  cursor: pointer;
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+.scale-name {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.board-scroll {
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.fretboard {
+  background: #f3ead9;
+  border-radius: 8px;
+  border: 1px solid #e0d4bd;
+}
+
+.fret-num {
+  font-size: 11px;
+  fill: #9a9082;
+}
+
+.string-label {
+  font-size: 12px;
+  fill: #6b6258;
+  font-weight: 600;
+}
+
+.note-label {
+  font-size: 11px;
+  font-weight: 700;
+  fill: #fff;
+  stroke: rgba(0, 0, 0, 0.65);
+  stroke-width: 2.2px;
+  paint-order: stroke;
+  pointer-events: none;
+}
+
+.note-label.root {
+  fill: #fff;
+  font-weight: 700;
+}
