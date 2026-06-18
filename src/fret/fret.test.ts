@@ -60,6 +60,23 @@ describe("three-note-per-string shapes", () => {
     expect(modes[minor + 2]).toBe(Mode.Ionian);
   });
 
+  it("identifies shapes by root-relative degree, so home stays home across modes", () => {
+    // The neck index of the home shape moves between modes, but rootDegree 0 is
+    // always the home shape and always embodies the selected mode.
+    for (const mode of [Mode.Ionian, Mode.Dorian, Mode.Lydian, Mode.Locrian]) {
+      const list = shapes(new Scale(Note.fromName("A"), mode), fretboard);
+      const rootShape = list.find((s) => s.rootDegree === 0)!;
+      expect(rootShape.isHome).toBe(true);
+      expect(rootShape.mode).toBe(mode);
+    }
+    // The bug: neck index 2 is the home shape in A major but the major shape in A locrian.
+    const major = shapes(new Scale(Note.fromName("A"), Mode.Ionian), fretboard);
+    const locrian = shapes(new Scale(Note.fromName("A"), Mode.Locrian), fretboard);
+    expect(major[2].isHome).toBe(true);
+    expect(locrian[2].mode).toBe(Mode.Ionian);
+    expect(locrian[2].isHome).toBe(false);
+  });
+
   it("annotates shared notes with multiple shapes (the overlap)", () => {
     const positions = annotatedPositions(aMinor, fretboard);
     const shared = positions.filter((p) => p.shapes.length >= 2);

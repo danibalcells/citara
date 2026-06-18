@@ -16,6 +16,7 @@ const SHAPE_COUNT = 7;
 export type Shape = {
   index: number; // 0 = lowest on the neck; index ascends up the neck
   mode: Mode;
+  rootDegree: number; // scale degree under the 6th-string middle finger (0 = root → home shape)
   isHome: boolean;
   positions: Position[];
 };
@@ -68,9 +69,9 @@ export function shapes(scale: Scale, fretboard: Fretboard): Shape[] {
         });
       }
     }
-    const middleDegree = scale.degreeOf(mod(tones[k + 1], 12))!;
-    const mode = mod(scale.mode + middleDegree, 7) as Mode;
-    result.push({ index: k, mode, isHome: mode === scale.mode, positions });
+    const rootDegree = scale.degreeOf(mod(tones[k + 1], 12))!;
+    const mode = mod(scale.mode + rootDegree, 7) as Mode;
+    result.push({ index: k, mode, rootDegree, isHome: mode === scale.mode, positions });
   }
   return result;
 }

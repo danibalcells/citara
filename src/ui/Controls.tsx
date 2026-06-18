@@ -82,11 +82,11 @@ export function Controls(props: Props) {
           {props.shapes.map((shape) => (
             <button
               key={shape.index}
-              className={`shape-toggle${props.enabledShapes.has(shape.index) ? " on" : ""}${
+              className={`shape-toggle${props.enabledShapes.has(shape.rootDegree) ? " on" : ""}${
                 shape.isHome ? " home" : ""
               }`}
               style={{ borderColor: MODE_COLORS[shape.mode] }}
-              onClick={() => props.onToggleShape(shape.index)}
+              onClick={() => props.onToggleShape(shape.rootDegree)}
               title={shape.isHome ? "Home shape (root under the middle finger)" : undefined}
             >
               <span className="swatch" style={{ background: MODE_COLORS[shape.mode] }} />

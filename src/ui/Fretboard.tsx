@@ -95,16 +95,17 @@ export function Fretboard({
   const fretWireX = (f: number) => PAD_LEFT + f * FRET_W;
   const dotX = (f: number) => (f === 0 ? PAD_LEFT - FRET_W * 0.5 : PAD_LEFT + (f - 0.5) * FRET_W);
 
-  const modeByShape = useMemo(
-    () => new Map(shapes.map((s) => [s.index, s.mode])),
+  const modeByShape = useMemo(() => new Map(shapes.map((s) => [s.index, s.mode])), [shapes]);
+  const rootDegreeByShape = useMemo(
+    () => new Map(shapes.map((s) => [s.index, s.rootDegree])),
     [shapes],
   );
+  // Selection is keyed by root-relative degree so it tracks the root across mode changes.
+  const isEnabled = (k: number) => enabledShapes.has(rootDegreeByShape.get(k)!);
 
   const visibleColors = (p: Position): string[] => {
     if (colorMode === "all") return [UNIFORM_COLOR];
-    return p.shapes
-      .filter((s) => enabledShapes.has(s))
-      .map((s) => MODE_COLORS[modeByShape.get(s)!]);
+    return p.shapes.filter(isEnabled).map((s) => MODE_COLORS[modeByShape.get(s)!]);
   };
 
   const visible = positions.filter(
@@ -178,7 +179,7 @@ export function Fretboard({
         const cy = stringY(p.string);
         const isRoot = p.degree === 0;
         const inHome =
-          colorMode === "shapes" && enabledShapes.has(homeShape) && p.shapes.includes(homeShape);
+          colorMode === "shapes" && isEnabled(homeShape) && p.shapes.includes(homeShape);
         const label = labelMode === "note"
           ? noteNameAt(scale, p.pc)
           : degreeLabels[p.degree];
